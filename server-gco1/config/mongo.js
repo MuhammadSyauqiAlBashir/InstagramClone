@@ -10,6 +10,6 @@ const client = new MongoClient(uri, {
   },
 });
 
-const database = client.db("gc01-water");
+const database = client.db("gc01-ig");
 
 module.exports = {database};
