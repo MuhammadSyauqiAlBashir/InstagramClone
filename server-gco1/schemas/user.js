@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const bcryptPass = require("../helpers/bcrypt");
 const Tokenjwt = require("../helpers/jwt");
 const User = require("../models/user");
@@ -9,9 +10,19 @@ const typeDefsUser = `#graphql
         username : String!
         email : String!
         password : String!
+        followingDetail:[userDetail]
+        followerDetail:[userDetail]
+    }
+    type userDetail{
+        _id : ID
+        name : String
+        username : String
+        email : String
+        password : String
     }
     type Query {
-      users: [User]
+      users: [User],
+      userDetail: User
     }
     type Token{
       accessToken: String
@@ -27,6 +38,12 @@ const resolversUser = {
     users: async () => {
       const users = await User.findAll();
       return users;
+    },
+    userDetail: async (_, __, { auth }) => {
+      const data = auth();
+      const userId = new ObjectId(String(data._id));
+      const user = await User.userDetails(userId);
+      return user;
     },
   },
   Mutation: {
@@ -52,11 +69,11 @@ const resolversUser = {
         const checkPass = bcryptPass.comparePassword(password, user.password);
         if (!checkPass) throw { name: "InvalidLogin" };
         const token = {
-          accessToken : Tokenjwt.genToken({
+          accessToken: Tokenjwt.genToken({
             _id: user._id,
-            email : user.email
-          })
-        }
+            email: user.email,
+          }),
+        };
         return token;
       } catch (error) {
         throw error;

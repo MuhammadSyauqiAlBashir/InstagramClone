@@ -1,9 +1,11 @@
+const { ObjectId } = require("mongodb");
 const bcryptPass = require("../helpers/bcrypt");
 const Tokenjwt = require("../helpers/jwt");
+const Follow = require("../models/follow");
 const User = require("../models/user");
 
 const typeDefsFollow = `#graphql
-    type User {
+    type Follow {
         _id : ID
         followingId : ID
         followerId : ID
@@ -14,52 +16,33 @@ const typeDefsFollow = `#graphql
       follows: [Follow]
     }
     type Mutation {
-      register(name: String!, username: String!, email: String!, password: String!):User
-      login(username: String!, password: String!):Token
+      follow(followingId: ID):Follow
     }
 `;
 
-const resolversUser = {
+const resolversFollow = {
   Query: {
-    users: async () => {
-      const users = await User.findAll();
-      return users;
+    follows: async () => {
+      const follows = await Follow.findAll();
+      return follows;
     },
   },
   Mutation: {
-    register: async (_, { name, username, email, password }) => {
-      password = bcryptPass.hashPassword(password);
-      const newUser = {
-        name,
-        username,
-        email,
-        password,
+    follow: async (_, { followingId }, { auth }) => {
+      const data = auth();
+      const followerId = new ObjectId(String(data._id));
+      followingId = new ObjectId(String(followingId));
+      const newFollow = {
+        followingId,
+        followerId,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
       };
-      const result = await User.createUser(newUser);
-      newUser._id = result.insertedId;
-      return newUser;
-    },
-    login: async (_, args) => {
-      try {
-        const { username, password } = args;
-        if (!username) throw { name: "UsernameRequired" };
-        if (!password) throw { name: "PasswordRequired" };
-        const user = await User.findByUsername(username);
-        if (!user) throw { name: "InvalidLogin" };
-        const checkPass = bcryptPass.comparePassword(password, user.password);
-        if (!checkPass) throw { name: "InvalidLogin" };
-        const token = {
-          accessToken: Tokenjwt.genToken({
-            _id: user._id,
-            email: user.email,
-          }),
-        };
-        return token;
-      } catch (error) {
-        throw error;
-      }
+      const result = await Follow.createfollow(newFollow);
+      newFollow._id = result.insertedId;
+      return newFollow;
     },
   },
 };
 
-module.exports = { typeDefsUser, resolversUser };
+module.exports = { typeDefsFollow, resolversFollow };

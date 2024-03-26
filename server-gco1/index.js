@@ -3,10 +3,11 @@ const { startStandaloneServer } = require("@apollo/server/standalone");
 const Tokenjwt = require("./helpers/jwt");
 const { typeDefsUser, resolversUser } = require("./schemas/user");
 const { typeDefsPost, resolversPost } = require("./schemas/post");
+const { typeDefsFollow, resolversFollow } = require("./schemas/follow");
 
 const server = new ApolloServer({
-  typeDefs: [typeDefsUser, typeDefsPost],
-  resolvers: [resolversUser, resolversPost],
+  typeDefs: [typeDefsUser, typeDefsPost,typeDefsFollow],
+  resolvers: [resolversUser, resolversPost, resolversFollow],
 });
 
 (async () => {
