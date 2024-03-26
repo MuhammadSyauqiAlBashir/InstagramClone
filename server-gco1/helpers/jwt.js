@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken")
-const secret  = process.env.JWT_SECRET
+const secret  = process.env.JWT_SECRET || "gc01ig"
 
-class Token {
+class Tokenjwt {
     static genToken (payload){
         return jwt.sign(payload, secret)
     }
@@ -10,4 +10,4 @@ class Token {
     }
 }
 
-module.exports = Token
+module.exports = Tokenjwt

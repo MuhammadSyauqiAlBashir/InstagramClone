@@ -13,6 +13,11 @@ class User {
     const newUser = await this.userCollection().insertOne(data)
     return newUser
   }
+  static async findByUsername(username) {
+    return this.userCollection().findOne({
+      username: username
+    })
+  }
 }
 
 module.exports = User;
