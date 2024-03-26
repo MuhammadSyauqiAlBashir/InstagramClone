@@ -18,6 +18,11 @@ class User {
       username: username,
     });
   }
+  static async findByEmail(email) {
+    return this.userCollection().findOne({
+      email: email,
+    });
+  }
   static async userDetails(id) {
     const agg = [
       {
@@ -60,8 +65,7 @@ class User {
     ];
     const cursor = this.userCollection().aggregate(agg);
     const result = await cursor.toArray();
-    console.log(result);
-    return result[0]
+    return result;
   }
 }
 

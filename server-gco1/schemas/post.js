@@ -12,6 +12,13 @@ const typeDefsPost = `#graphql
         likes:[Likes]
         createdAt: String
         updatedAt: String
+        author: [author]
+    }
+    type author{
+        _id: ID
+        name: String
+        username: String
+        email: String
     }
     type Comments{
         content: String!
@@ -36,6 +43,7 @@ const resolversPost = {
   Query: {
     posts: async () => {
       const posts = await Post.findAll();
+      console.log(posts);
       return posts;
     },
   },

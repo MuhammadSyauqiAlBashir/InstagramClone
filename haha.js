@@ -1,7 +1,4 @@
 import { MongoClient } from 'mongodb';
-import {
-  ObjectId
-} from 'mongodb';
 
 /*
  * Requires the MongoDB Node.js Driver
@@ -10,36 +7,15 @@ import {
 
 const agg = [
   {
-    '$match': {
-      '_id': new ObjectId('66025073c4a34dc17e2ca9ef')
-    }
-  }, {
-    '$lookup': {
-      'from': 'Follows', 
-      'localField': '_id', 
-      'foreignField': 'followingId', 
-      'as': 'followers'
+    '$sort': {
+      'createdAt': -1
     }
   }, {
     '$lookup': {
       'from': 'Users', 
-      'localField': 'followers.followerId', 
+      'localField': 'authorId', 
       'foreignField': '_id', 
-      'as': 'followerDetail'
-    }
-  }, {
-    '$lookup': {
-      'from': 'Follows', 
-      'localField': '_id', 
-      'foreignField': 'followerId', 
-      'as': 'following'
-    }
-  }, {
-    '$lookup': {
-      'from': 'Users', 
-      'localField': 'following.followingId', 
-      'foreignField': '_id', 
-      'as': 'followingDetail'
+      'as': 'author'
     }
   }
 ];
@@ -48,7 +24,7 @@ const client = await MongoClient.connect(
   '',
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
-const coll = client.db('gc01-ig').collection('Users');
+const coll = client.db('gc01-ig').collection('Posts');
 const cursor = coll.aggregate(agg);
 const result = await cursor.toArray();
 await client.close();

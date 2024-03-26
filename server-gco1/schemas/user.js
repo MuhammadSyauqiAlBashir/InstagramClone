@@ -9,7 +9,6 @@ const typeDefsUser = `#graphql
         name : String
         username : String!
         email : String!
-        password : String!
         followingDetail:[userDetail]
         followerDetail:[userDetail]
     }
@@ -18,17 +17,17 @@ const typeDefsUser = `#graphql
         name : String
         username : String
         email : String
-        password : String
     }
     type Query {
       users: [User],
-      userDetail: User
+      userDetail: User,
+      findUser: User
     }
     type Token{
       accessToken: String
     }
     type Mutation {
-      register(name: String!, username: String!, email: String!, password: String!):User
+      register(name: String, username: String!, email: String!, password: String!):User
       login(username: String!, password: String!):Token
     }
 `;
@@ -45,19 +44,48 @@ const resolversUser = {
       const user = await User.userDetails(userId);
       return user;
     },
+    findUser: async (_, { username }) => {
+      const user = await User.findByUsername(username);
+      return user;
+    },
   },
   Mutation: {
     register: async (_, { name, username, email, password }) => {
-      password = bcryptPass.hashPassword(password);
-      const newUser = {
-        name,
-        username,
-        email,
-        password,
-      };
-      const result = await User.createUser(newUser);
-      newUser._id = result.insertedId;
-      return newUser;
+      try {
+        if (!username) throw { name: "NameRequired" };
+        const user = await User.findByUsername(username);
+        if (user) throw { name: "UsernameTaken" };
+
+        if (!email) throw { name: "EmailRequired" };
+        const userEmail = await User.findByEmail(email);
+
+        if (userEmail) throw { name: "EmailTaken" };
+        let checkemail = email.split("@");
+        if (checkemail.length > 1) {
+          if (checkemail[1].split(".").length <= 1) {
+            throw new Error("Invalid Email Format");
+          }
+        } else {
+          throw new Error("Invalid Email Format");
+        }
+
+        if (!password) throw { name: "PasswordRequired" };
+        if (password.length < 6) throw { name: "PasswordTooShort" };
+        password = bcryptPass.hashPassword(password);
+
+        const newUser = {
+          name,
+          username,
+          email,
+          password,
+        };
+        const result = await User.createUser(newUser);
+        newUser._id = result.insertedId;
+        return newUser;
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
     },
     login: async (_, args) => {
       try {

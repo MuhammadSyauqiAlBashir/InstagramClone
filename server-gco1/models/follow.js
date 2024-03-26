@@ -1,4 +1,3 @@
-const { ObjectId } = require("mongodb");
 const { database } = require("../config/mongo");
 
 class Follow {
@@ -9,9 +8,9 @@ class Follow {
     const follows = await this.followCollection().find().toArray();
     return follows;
   }
-  static async createfollow(data){
-    const newfollow = await this.followCollection().insertOne(data)
-    return newfollow
+  static async createfollow(data) {
+    const newfollow = await this.followCollection().insertOne(data);
+    return newfollow;
   }
 }
 

@@ -1,8 +1,5 @@
 const { ObjectId } = require("mongodb");
-const bcryptPass = require("../helpers/bcrypt");
-const Tokenjwt = require("../helpers/jwt");
 const Follow = require("../models/follow");
-const User = require("../models/user");
 
 const typeDefsFollow = `#graphql
     type Follow {
