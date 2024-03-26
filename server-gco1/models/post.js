@@ -9,7 +9,7 @@ class Post {
     const posts = await this.postCollection().find().toArray();
     return posts;
   }
-  static async createpost(data){
+  static async createPost(data){
     const newpost = await this.postCollection().insertOne(data)
     return newpost
   }
