@@ -56,13 +56,44 @@ class Post {
     const result = await cursor.toArray();
     return result[0];
   }
-  static async likeComment(id, update) {
-      const post = await this.postCollection().updateOne(
-        { _id: new ObjectId(String(id)) },
-        { $push: update }
-      );
-      if(!post) throw new Error("Post not found");
-      return post;
+  static async likeComment(id, update, username) {
+    if (update.likes) {
+      const agg = [
+        {
+          $match: {
+            _id: new ObjectId(String(id)),
+          },
+        },
+      ];
+      const cursor = this.postCollection().aggregate(agg);
+      const result = await cursor.toArray();
+      result[0].likes.map((item) => {
+        if (item.username === username) throw new Error("Already liked");
+      });
+    }
+    const post = await this.postCollection().updateOne(
+      { _id: new ObjectId(String(id)) },
+      { $push: update }
+    );
+    if (!post) throw new Error("Post not found");
+    const agg = [
+      {
+        $match: {
+          _id: new ObjectId(String(id)),
+        },
+      },
+      {
+        $lookup: {
+          from: "Users",
+          localField: "authorId",
+          foreignField: "_id",
+          as: "author",
+        },
+      },
+    ];
+    const cursor = this.postCollection().aggregate(agg);
+    const result = await cursor.toArray();
+    return result[0];
   }
 }
 

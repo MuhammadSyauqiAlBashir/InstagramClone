@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongodb");
 const { database } = require("../config/mongo");
 
 class Follow {
@@ -9,8 +10,26 @@ class Follow {
     return follows;
   }
   static async createfollow(data) {
-    const newfollow = await this.followCollection().insertOne(data);
-    return newfollow;
+    console.log(data);
+    const agg = [
+      {
+        $match: {
+          followingId: new ObjectId(String(data.followingId)),
+          followerId: new ObjectId(String(data.followerId)),
+        },
+      },
+    ];
+    const cursor = this.followCollection().aggregate(agg);
+    const result = await cursor.toArray();
+    console.log(result);
+    if (result.length > 0) {
+      throw new Error("Can not Like Twice");
+    }else {
+      data.followingId = new ObjectId(String(data.followingId))
+      data.followerId = new ObjectId(String(data.followerId))
+      const newfollow = await this.followCollection().insertOne(data);
+      return newfollow;
+    }
   }
 }
 

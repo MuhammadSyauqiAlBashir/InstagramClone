@@ -37,8 +37,8 @@ const typeDefsPost = `#graphql
     }
     type Mutation {
       addPost(content: String!,tags: [String], imgUrl: String!):Post
-      like(_id: String!):Likes
-      Comment(content: String!, _id: String!):Comments
+      like(_id: String!):Post
+      Comment(content: String!, _id: String!):Post
     }
 `;
 
@@ -55,39 +55,39 @@ const resolversPost = {
     },
   },
   Mutation: {
-    like: async (_, {_id}, {auth}) => {
+    like: async (_, { _id }, { auth }) => {
       try {
-        const user = auth()
+        const user = auth();
         if (!_id) throw new Error("IdRequired");
         const newLike = {
           username: user.username,
           createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString()
+          updatedAt: new Date().toISOString(),
         };
         const result = await Post.likeComment(
           _id,
-          { likes: newLike } 
+          { likes: newLike },
+          user.username
         );
         return result;
       } catch (error) {
         console.log(error);
+        throw error;
       }
     },
-    Comment: async (_, {content, _id}, {auth}) => {
+    Comment: async (_, { content, _id }, { auth }) => {
       try {
         const user = auth();
+        console.log(user.username);
         if (!content) throw new Error("ContentRequired");
         if (!_id) throw new Error("IdRequired");
         const newComment = {
           content,
           username: user.username,
           createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString()
+          updatedAt: new Date().toISOString(),
         };
-        const result = await Post.likeComment(
-          _id,
-          { comments: newComment } 
-        );
+        const result = await Post.likeComment(_id, { comments: newComment });
 
         return result;
       } catch (error) {
