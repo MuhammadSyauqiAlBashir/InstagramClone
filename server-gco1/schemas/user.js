@@ -19,9 +19,9 @@ const typeDefsUser = `#graphql
         email : String
     }
     type Query {
-      users: [User],
-      userDetail: User,
-      findUser: User
+      users: [User]
+      userDetail(id:String!): User
+      findUser(username:String): User
     }
     type Token{
       accessToken: String
@@ -38,10 +38,8 @@ const resolversUser = {
       const users = await User.findAll();
       return users;
     },
-    userDetail: async (_, __, { auth }) => {
-      const data = auth();
-      const userId = new ObjectId(String(data._id));
-      const user = await User.userDetails(userId);
+    userDetail: async (_, { id }) => {
+      const user = await User.userDetails(id);
       return user;
     },
     findUser: async (_, { username }) => {
@@ -60,6 +58,7 @@ const resolversUser = {
         const userEmail = await User.findByEmail(email);
 
         if (userEmail) throw { name: "EmailTaken" };
+
         let checkemail = email.split("@");
         if (checkemail.length > 1) {
           if (checkemail[1].split(".").length <= 1) {
@@ -99,7 +98,7 @@ const resolversUser = {
         const token = {
           accessToken: Tokenjwt.genToken({
             _id: user._id,
-            email: user.email,
+            username: user.username
           }),
         };
         return token;

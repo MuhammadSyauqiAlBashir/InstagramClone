@@ -27,7 +27,7 @@ class User {
     const agg = [
       {
         $match: {
-          _id: new ObjectId("66025073c4a34dc17e2ca9ef"),
+          _id: new ObjectId(String(id)),
         },
       },
       {
@@ -65,7 +65,7 @@ class User {
     ];
     const cursor = this.userCollection().aggregate(agg);
     const result = await cursor.toArray();
-    return result;
+    return result[0]
   }
 }
 

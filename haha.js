@@ -7,15 +7,8 @@ import { MongoClient } from 'mongodb';
 
 const agg = [
   {
-    '$sort': {
-      'createdAt': -1
-    }
-  }, {
-    '$lookup': {
-      'from': 'Users', 
-      'localField': 'authorId', 
-      'foreignField': '_id', 
-      'as': 'author'
+    '$match': {
+      'name': 'watersnj'
     }
   }
 ];
@@ -24,7 +17,7 @@ const client = await MongoClient.connect(
   '',
   { useNewUrlParser: true, useUnifiedTopology: true }
 );
-const coll = client.db('gc01-ig').collection('Posts');
+const coll = client.db('gc01-ig').collection('Users');
 const cursor = coll.aggregate(agg);
 const result = await cursor.toArray();
 await client.close();
