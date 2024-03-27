@@ -12,7 +12,7 @@ const typeDefsPost = `#graphql
         likes:[Likes]
         createdAt: String
         updatedAt: String
-        author: [author]
+        author: author
     }
     type author{
         _id: ID
@@ -58,6 +58,7 @@ const resolversPost = {
     like: async (_, { _id }, { auth }) => {
       try {
         const user = auth();
+        if (!user.username) throw new Error("UserRequired");
         if (!_id) throw new Error("IdRequired");
         const newLike = {
           username: user.username,
@@ -78,7 +79,7 @@ const resolversPost = {
     Comment: async (_, { content, _id }, { auth }) => {
       try {
         const user = auth();
-        console.log(user.username);
+        if (!user.username) throw new Error("UserRequired");
         if (!content) throw new Error("ContentRequired");
         if (!_id) throw new Error("IdRequired");
         const newComment = {
@@ -97,7 +98,9 @@ const resolversPost = {
     addPost: async (_, { content, tags, imgUrl }, { auth }) => {
       try {
         let data = auth();
+        if (!content) throw new Error("ContentRequired");
         const authorId = new ObjectId(String(data._id));
+        if (!authorId) throw new Error("AuthorIdRequired");
         const newPost = {
           content,
           tags,

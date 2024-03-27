@@ -2,9 +2,9 @@ const { Redis } = require("ioredis");
 
 const redis = new Redis({
   port: 12548,
-  host: "redis-12548.c295.ap-southeast-1-1.ec2.cloud.redislabs.com",
+  host: process.env.REDIS_HOST,
   username: "default",
-  password: "88OZ5kJhT8ha3BkL0XBDbUDzqhf0ApLw",
+  password: process.env.REDIS_PASSWORD,
   db: 0,
 });
 

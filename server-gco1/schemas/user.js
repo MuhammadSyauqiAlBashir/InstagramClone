@@ -21,7 +21,7 @@ const typeDefsUser = `#graphql
     type Query {
       users: [User]
       userDetail(id:String!): User
-      findUser(username:String): User
+      findUser(username:String): [User]
     }
     type Token{
       accessToken: String
@@ -50,14 +50,14 @@ const resolversUser = {
   Mutation: {
     register: async (_, { name, username, email, password }) => {
       try {
-        if (!username) throw { name: "NameRequired" };
+        if (!username) throw new Error("NameRequired");
         const user = await User.findByUsername(username);
-        if (user) throw { name: "UsernameTaken" };
+        if (user) throw new Error("UsernameTaken");
 
-        if (!email) throw { name: "EmailRequired" };
+        if (!email) throw new Error("EmailRequired");
         const userEmail = await User.findByEmail(email);
 
-        if (userEmail) throw { name: "EmailTaken" };
+        if (userEmail) throw new Error("EmailTaken");
 
         let checkemail = email.split("@");
         if (checkemail.length > 1) {
@@ -68,8 +68,8 @@ const resolversUser = {
           throw new Error("Invalid Email Format");
         }
 
-        if (!password) throw { name: "PasswordRequired" };
-        if (password.length < 6) throw { name: "PasswordTooShort" };
+        if (!password) throw new Error("PasswordRequired");
+        if (password.length < 6) throw new Error("PasswordTooShort");
         password = bcryptPass.hashPassword(password);
 
         const newUser = {
@@ -89,16 +89,16 @@ const resolversUser = {
     login: async (_, args) => {
       try {
         const { username, password } = args;
-        if (!username) throw { name: "UsernameRequired" };
-        if (!password) throw { name: "PasswordRequired" };
+        if (!username) throw new Error("UsernameRequired");
+        if (!password) throw new Error("PasswordRequired");
         const user = await User.findByUsername(username);
-        if (!user) throw { name: "InvalidLogin" };
+        if (!user) throw new Error("InvalidLogin");
         const checkPass = bcryptPass.comparePassword(password, user.password);
-        if (!checkPass) throw { name: "InvalidLogin" };
+        if (!checkPass) throw new Error("InvalidLogin");
         const token = {
           accessToken: Tokenjwt.genToken({
             _id: user._id,
-            username: user.username
+            username: user.username,
           }),
         };
         return token;

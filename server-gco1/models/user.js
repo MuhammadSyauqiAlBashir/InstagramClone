@@ -14,9 +14,11 @@ class User {
     return newUser;
   }
   static async findByUsername(username) {
-    return this.userCollection().findOne({
-      username: username,
-    });
+    return this.userCollection()
+      .find({
+        username: { $regex: username },
+      })
+      .toArray();
   }
   static async findByEmail(email) {
     return this.userCollection().findOne({
@@ -65,7 +67,7 @@ class User {
     ];
     const cursor = this.userCollection().aggregate(agg);
     const result = await cursor.toArray();
-    return result[0]
+    return result[0];
   }
 }
 

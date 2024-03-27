@@ -10,7 +10,6 @@ class Follow {
     return follows;
   }
   static async createfollow(data) {
-    console.log(data);
     const agg = [
       {
         $match: {
@@ -21,12 +20,11 @@ class Follow {
     ];
     const cursor = this.followCollection().aggregate(agg);
     const result = await cursor.toArray();
-    console.log(result);
     if (result.length > 0) {
       throw new Error("Can not Like Twice");
-    }else {
-      data.followingId = new ObjectId(String(data.followingId))
-      data.followerId = new ObjectId(String(data.followerId))
+    } else {
+      data.followingId = new ObjectId(String(data.followingId));
+      data.followerId = new ObjectId(String(data.followerId));
       const newfollow = await this.followCollection().insertOne(data);
       return newfollow;
     }
