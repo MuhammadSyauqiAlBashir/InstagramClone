@@ -18,11 +18,11 @@ const LOGIN = gql`
 export function LoginScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const { setIsSignedIn } = useContext(authContext);
+  const { setIsSignedIn } = useContext(authContext);
   const [loginFunction, { loading, error, data }] = useMutation(LOGIN, {
     onCompleted: async (data) => {
       await SecureStore.setItemAsync("accessToken", data?.login.accessToken);
-      // setIsSignedIn(true);
+      setIsSignedIn(true);
     },
   });
   function handleLogin() {
