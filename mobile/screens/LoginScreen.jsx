@@ -15,19 +15,19 @@ const LOGIN = gql`
   }
 `;
 
-export default function LoginScreen({ navigation }) {
+export function LoginScreen({ navigation }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { setIsSignedIn } = useContext(authContext);
+  // const { setIsSignedIn } = useContext(authContext);
   const [loginFunction, { loading, error, data }] = useMutation(LOGIN, {
     onCompleted: async (data) => {
       await SecureStore.setItemAsync("accessToken", data?.login.accessToken);
-      setIsSignedIn(true);
+      // setIsSignedIn(true);
     },
   });
-function handleLogin() {
-  loginFunction({ variables: { username: username, password: password } });
-}
+  function handleLogin() {
+    loginFunction({ variables: { username: username, password: password } });
+  }
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text>Login Screen</Text>

@@ -10,6 +10,7 @@ import { ReelsScreen } from "../screens/ReelsScreen";
 import { Foundation } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import LogoTitle from "../components/instagram";
+
 function TabNavigator() {
   return (
     <Tab.Navigator
