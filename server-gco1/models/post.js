@@ -57,6 +57,12 @@ class Post {
           as: "author",
         },
       },
+      {
+        $unwind: {
+          path: "$author",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
     ];
     const cursor = this.postCollection().aggregate(agg);
     const result = await cursor.toArray();
@@ -94,6 +100,12 @@ class Post {
           localField: "authorId",
           foreignField: "_id",
           as: "author",
+        },
+      },
+      {
+        $unwind: {
+          path: "$author",
+          preserveNullAndEmptyArrays: true,
         },
       },
     ];
