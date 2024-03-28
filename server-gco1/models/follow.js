@@ -21,7 +21,7 @@ class Follow {
     const cursor = this.followCollection().aggregate(agg);
     const result = await cursor.toArray();
     if (result.length > 0) {
-      throw new Error("Can not Like Twice");
+      throw new Error("Can not Follow Twice");
     } else {
       data.followingId = new ObjectId(String(data.followingId));
       data.followerId = new ObjectId(String(data.followerId));
