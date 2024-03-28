@@ -52,7 +52,7 @@ const resolversUser = {
       try {
         if (!username) throw new Error("NameRequired");
         const user = await User.findByUsername(username);
-        if (user) throw new Error("UsernameTaken");
+        if (user[0]) throw new Error("UsernameTaken");
 
         if (!email) throw new Error("EmailRequired");
         const userEmail = await User.findByEmail(email);
@@ -92,8 +92,8 @@ const resolversUser = {
         if (!username) throw new Error("UsernameRequired");
         if (!password) throw new Error("PasswordRequired");
         const user = await User.findByUsername(username);
-        if (!user) throw new Error("InvalidLogin");
-        const checkPass = bcryptPass.comparePassword(password, user.password);
+        if (!user[0]) throw new Error("InvalidLogin");
+        const checkPass = bcryptPass.comparePassword(password, user[0].password);
         if (!checkPass) throw new Error("InvalidLogin");
         const token = {
           accessToken: Tokenjwt.genToken({

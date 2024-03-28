@@ -1,12 +1,13 @@
 import React, { useContext, useState } from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity, TextInput } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Button } from "react-native";
 import authContext from "../context/auth";
 import * as SecureStore from "expo-secure-store";
 import { gql, useMutation, useQuery } from "@apollo/client";
-
+import { SafeAreaView } from "react-native-safe-area-context";
+import LogoTitle from "../components/instagram";
 const LOGIN = gql`
   mutation Mutation($username: String!, $password: String!) {
     login(username: $username, password: $password) {
@@ -29,16 +30,26 @@ export function LoginScreen({ navigation }) {
     loginFunction({ variables: { username: username, password: password } });
   }
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Login Screen</Text>
-      <Button
-        title="Home"
-        onPress={() =>
-          navigation.navigate("Home", {
-            screen: "Home",
-          })
-        }
-      />
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <LogoTitle />
+      <TextInput
+        placeholder="Username"
+        onChangeText={(text) => setUsername(text)}
+      ></TextInput>
+      <TextInput
+        placeholder="Password"
+        onChangeText={(text) => setPassword(text)}
+      ></TextInput>
+      <TouchableOpacity title="Home" onPress={() => handleLogin()}>
+        <Text variant="titleLarge">Login</Text>
+      </TouchableOpacity>
     </View>
   );
 }
