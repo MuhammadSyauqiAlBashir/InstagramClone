@@ -33,7 +33,7 @@ export function LoginScreen({ navigation }) {
       });
       setPassword("");
       setUsername("");
-      // Alert.alert("Login Successful");
+      Alert.alert("Login Successful");
     } catch (error) {
       Alert.alert("Login Error",error.message);
     }
