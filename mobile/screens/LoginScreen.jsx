@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { View, Text, TouchableOpacity, TextInput } from "react-native";
+import { View, Text, TouchableOpacity, TextInput, Alert } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Button } from "react-native";
@@ -26,8 +26,17 @@ export function LoginScreen({ navigation }) {
       setIsSignedIn(true);
     },
   });
-  function handleLogin() {
-    loginFunction({ variables: { username: username, password: password } });
+  async function handleLogin() {
+    try {
+      await loginFunction({
+        variables: { username: username, password: password },
+      });
+      setPassword("");
+      setUsername("");
+      // Alert.alert("Login Successful");
+    } catch (error) {
+      Alert.alert("Login Error",error.message);
+    }
   }
   return (
     <View
