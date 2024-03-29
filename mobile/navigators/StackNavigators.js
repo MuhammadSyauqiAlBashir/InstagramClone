@@ -8,6 +8,7 @@ import AuthContext from "../context/auth";
 import React, { useContext, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
+import { LogoutScreen } from "../screens/LogoutScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -28,11 +29,18 @@ function StackNavigator() {
             <Stack.Screen name="Register" component={RegisterScreen} />
           </>
         ) : (
-          <Stack.Screen
-            name="Home"
-            component={TabNavigator}
-            options={{ headerShown: false }}
-          />
+          <>
+            <Stack.Screen
+              name="Home"
+              component={TabNavigator}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Logout"
+              component={LogoutScreen}
+              options={{ headerShown: true }}
+            />
+          </>
         )}
       </Stack.Navigator>
     </AuthContext.Provider>
