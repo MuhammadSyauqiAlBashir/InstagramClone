@@ -22,6 +22,7 @@ const typeDefsUser = `#graphql
       users: [User]
       userDetail(id:String!): User
       findUser(username:String): [User]
+      myProfile: User
     }
     type Token{
       accessToken: String
@@ -34,17 +35,25 @@ const typeDefsUser = `#graphql
 
 const resolversUser = {
   Query: {
-    users: async () => {
+    users: async (_, __, { auth }) => {
+      auth();
       const users = await User.findAll();
       return users;
     },
-    userDetail: async (_, { id }) => {
+    userDetail: async (_, { id }, { auth }) => {
+      auth();
       const user = await User.userDetails(id);
       return user;
     },
-    findUser: async (_, { username }) => {
+    findUser: async (_, { username }, { auth }) => {
+      auth();
       const user = await User.findByUsername(username);
       return user;
+    },
+    myProfile: async (_, __, { auth }) => {
+      const data = auth();
+      const myProfile = await User.myProfile(data._id);
+      return myProfile;
     },
   },
   Mutation: {
@@ -93,12 +102,15 @@ const resolversUser = {
         if (!password) throw new Error("PasswordRequired");
         const user = await User.findByUsername(username);
         if (!user[0]) throw new Error("InvalidLogin");
-        const checkPass = bcryptPass.comparePassword(password, user[0].password);
+        const checkPass = bcryptPass.comparePassword(
+          password,
+          user[0].password
+        );
         if (!checkPass) throw new Error("InvalidLogin");
         const token = {
           accessToken: Tokenjwt.genToken({
-            _id: user._id,
-            username: user.username,
+            _id: user[0]._id,
+            username: user[0].username,
           }),
         };
         return token;

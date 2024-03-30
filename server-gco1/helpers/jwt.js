@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const secret = process.env.JWT_SECRET || "gc01ig";
+const secret = process.env.JWT_SECRET;
 
 class Tokenjwt {
   static genToken(payload) {

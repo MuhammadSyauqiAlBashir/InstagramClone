@@ -44,11 +44,13 @@ const typeDefsPost = `#graphql
 
 const resolversPost = {
   Query: {
-    posts: async () => {
+    posts: async (_, __, { auth }) => {
+      auth()
       const posts = await Post.findAll();
       return posts;
     },
-    detailPost: async (_, args) => {
+    detailPost: async (_, args, { auth }) => {
+      auth()
       const id = args._id;
       const post = await Post.findPostById(id);
       return post;

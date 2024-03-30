@@ -111,6 +111,7 @@ class Post {
     ];
     const cursor = this.postCollection().aggregate(agg);
     const result = await cursor.toArray();
+    await redis.del("posts");
     return result[0];
   }
 }

@@ -47,6 +47,7 @@ function TabNavigator() {
           tabBarIcon: ({ color, size }) => (
             <AntDesign name="search1" size={24} color={color} />
           ),
+          headerShown: false 
         }}
       />
       <Tab.Screen

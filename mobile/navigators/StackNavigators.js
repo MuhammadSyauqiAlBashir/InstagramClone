@@ -9,6 +9,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
 import { LogoutScreen } from "../screens/LogoutScreen";
 import RegisterScreen from "../screens/RegisterScreen";
+import { CommentScreen } from "../screens/CommentScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +35,11 @@ function StackNavigator() {
               name="Home"
               component={TabNavigator}
               options={{ headerShown: false }}
+            />
+            <Stack.Screen 
+            name="Comments"
+            component={CommentScreen}
+            options={{headerShown: true}}
             />
             <Stack.Screen
               name="Logout"
