@@ -64,6 +64,14 @@ class User {
           as: "followingDetail",
         },
       },
+      {
+        $lookup: {
+          from: "Posts",
+          localField: "_id",
+          foreignField: "authorId",
+          as: "userPost",
+        },
+      },
     ];
     const cursor = this.userCollection().aggregate(agg);
     const result = await cursor.toArray();

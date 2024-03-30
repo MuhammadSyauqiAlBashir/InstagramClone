@@ -11,6 +11,16 @@ const typeDefsUser = `#graphql
         email : String!
         followingDetail:[userDetail]
         followerDetail:[userDetail]
+        userPost:[UserPost]
+    }
+    type UserPost {
+        _id: ID
+        content: String!
+        tags: [String]
+        imgUrl: String!
+        authorId: ID!
+        createdAt: String!
+        updatedAt: String!
     }
     type userDetail{
         _id : ID

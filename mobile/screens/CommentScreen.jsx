@@ -50,7 +50,7 @@ export const CommentScreen = ({ route }) => {
     <ScrollView>
       <View
         style={{
-          flexDirection: "row",
+          flexDirection: "column",
           justifyContent: "space-between",
           marginStart: 10,
           marginEnd: 10,
@@ -60,66 +60,32 @@ export const CommentScreen = ({ route }) => {
         {data && data.detailPost.comments.length > 0 ? (
           data.detailPost.comments.map((comment, index) => (
             <>
-              <View
-                key={index}
-                style={{ flexDirection: "row", marginBottom: 10 }}
-              >
-                <Image
-                  source={{ uri: "https://picsum.photos/600" }}
-                  style={{ width: 60, height: 60, borderRadius: 70 }}
-                />
-                <View style={{ flexDirection: "column", marginStart: 15 }}>
-                  <Text style={{ color: "black", fontWeight: "bold" }}>
-                    {comment.username}
-                  </Text>
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Text style={{ color: "black" }}>{comment.content}</Text>
-                    <Text style={{ color: Colors.textFaded2, marginStart: 5 }}>
-                      2h
-                    </Text>
-                  </View>
-                </View>
-              </View>
-              <ScrollView style={{ flexDirection: "column" }}>
+              <View style={{ flexDirection: "row" }}>
                 <View
-                  style={{
-                    flexDirection: "column",
-                    alignItems: "center",
-                    marginTop: 10,
-                  }}
+                  key={index}
+                  style={{ flexDirection: "row", marginBottom: 10 }}
                 >
                   <Image
                     source={{ uri: "https://picsum.photos/600" }}
-                    style={{
-                      width: 30,
-                      height: 30,
-                      borderRadius: 15,
-                      marginStart: 10,
-                    }}
+                    style={{ width: 60, height: 60, borderRadius: 70 }}
                   />
-                  <TextInput
-                    placeholder="Add a comment..."
-                    style={{
-                      flex: 1,
-                      marginLeft: 10,
-                      fontSize: 16,
-                      paddingVertical: 8,
-                      paddingHorizontal: 12,
-                      borderWidth: 1,
-                      borderColor: Colors.lightGray,
-                      borderRadius: 20,
-                    }}
-                    value={comment}
-                    onChangeText={setComment}
-                  />
-                  <TouchableOpacity
-                    onPress={handleSubmit}
-                    style={{ marginEnd: 10 }}
-                  >
-                    <FontAwesome name="send" size={24} color={Colors.primary} />
-                  </TouchableOpacity>
+                  <View style={{ flexDirection: "column", marginStart: 15 }}>
+                    <Text style={{ color: "black", fontWeight: "bold" }}>
+                      {comment.username}
+                    </Text>
+                    <View
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                    >
+                      <Text style={{ color: "black" }}>{comment.content}</Text>
+                      <Text
+                        style={{ color: Colors.textFaded2, marginStart: 5 }}
+                      >
+                        2h
+                      </Text>
+                    </View>
+                  </View>
                 </View>
-              </ScrollView>
+              </View>
             </>
           ))
         ) : (
@@ -142,6 +108,43 @@ export const CommentScreen = ({ route }) => {
           </View>
         )}
       </View>
+      <ScrollView style={{ flexDirection: "column" }}>
+        <View
+          style={{
+            flexDirection: "column",
+            alignItems: "center",
+            marginTop: 10,
+          }}
+        >
+          <Image
+            source={{ uri: "https://picsum.photos/600" }}
+            style={{
+              width: 30,
+              height: 30,
+              borderRadius: 15,
+              marginStart: 10,
+            }}
+          />
+          <TextInput
+            placeholder="Add a comment..."
+            style={{
+              flex: 1,
+              marginLeft: 10,
+              fontSize: 16,
+              paddingVertical: 8,
+              paddingHorizontal: 12,
+              borderWidth: 1,
+              borderColor: Colors.lightGray,
+              borderRadius: 20,
+            }}
+            value={comment}
+            onChangeText={setComment}
+          />
+          <TouchableOpacity onPress={handleSubmit} style={{ marginEnd: 10 }}>
+            <FontAwesome name="send" size={24} color={Colors.primary} />
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </ScrollView>
   );
 };
