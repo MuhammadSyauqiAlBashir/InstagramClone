@@ -1,16 +1,19 @@
-import { ActivityIndicator, Image, Text, View } from "react-native";
 import {
+  ActivityIndicator,
+  Image,
   ScrollView,
+  Text,
   TextInput,
   TouchableOpacity,
-} from "react-native-gesture-handler";
+  View,
+} from "react-native";
 import { gql, useQuery } from "@apollo/client";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { useState } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 
-const GET_POST = gql`
-query Query($id: String!) {
+const comments = gql`
+  query Query($id: String!) {
     detailPost(_id: $id) {
       comments {
         content
@@ -24,18 +27,12 @@ query Query($id: String!) {
 
 export const CommentScreen = ({ route }) => {
   const { id } = route.params;
-  const { loading, error, data } = useQuery(GET_POST, {
-    variables: { _id: id },
+  const { loading, error, data } = useQuery(comments, {
+    variables: { id: id },
   });
-
   const [comment, setComment] = useState("");
 
-  const handleSubmit = () => {
-    // Menangani pengiriman komentar
-    console.log("Submit comment:", comment);
-    // Mengosongkan input setelah pengiriman komentar
-    setComment("");
-  };
+  const handleSubmit = () => {};
 
   if (loading) {
     return (
@@ -60,8 +57,8 @@ export const CommentScreen = ({ route }) => {
           marginTop: 15,
         }}
       >
-        {data && data.post.Comments.length > 0 ? (
-          data.post.Comments.map((comment, index) => (
+        {data && data.detailPost.comments.length > 0 ? (
+          data.detailPost.comments.map((comment, index) => (
             <>
               <View
                 key={index}
@@ -77,20 +74,16 @@ export const CommentScreen = ({ route }) => {
                   </Text>
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <Text style={{ color: "black" }}>{comment.content}</Text>
-                    <Image
-                      source={images.dot}
-                      style={{ width: 3, height: 3, marginStart: 5 }}
-                    />
                     <Text style={{ color: Colors.textFaded2, marginStart: 5 }}>
                       2h
                     </Text>
                   </View>
                 </View>
               </View>
-              <ScrollView>
+              <ScrollView style={{ flexDirection: "column" }}>
                 <View
                   style={{
-                    flexDirection: "row",
+                    flexDirection: "column",
                     alignItems: "center",
                     marginTop: 10,
                   }}
@@ -113,7 +106,7 @@ export const CommentScreen = ({ route }) => {
                       paddingVertical: 8,
                       paddingHorizontal: 12,
                       borderWidth: 1,
-                      borderColor: colors.lightGray,
+                      borderColor: Colors.lightGray,
                       borderRadius: 20,
                     }}
                     value={comment}
@@ -123,7 +116,7 @@ export const CommentScreen = ({ route }) => {
                     onPress={handleSubmit}
                     style={{ marginEnd: 10 }}
                   >
-                    <FontAwesome name="send" size={24} color={colors.primary} />
+                    <FontAwesome name="send" size={24} color={Colors.primary} />
                   </TouchableOpacity>
                 </View>
               </ScrollView>
@@ -152,5 +145,3 @@ export const CommentScreen = ({ route }) => {
     </ScrollView>
   );
 };
-
-

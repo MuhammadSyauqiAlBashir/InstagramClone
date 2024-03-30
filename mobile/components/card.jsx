@@ -62,7 +62,9 @@ function Card({ post, user, refetch, flag , navigation}) {
         <MaterialCommunityIcons name="account-circle" size={35} color="black" />
         <View style={{ flexDirection: "column" }}>
           <Text style={styles.username}>{post.author.username}</Text>
-          <Text style={styles.tags}>{post.tags}</Text>
+          <Text style={styles.tags}>{post.tags.map((item)=> {
+            return item + " "
+          })}</Text>
         </View>
       </View>
       <Image
