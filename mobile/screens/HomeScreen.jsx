@@ -41,7 +41,7 @@ export function HomeScreen() {
 
   return (
     <View>
-      {data && data.posts.map((post) => <Text>{post.content}</Text>)}
+      {data && data.posts.map((post, index) => <Text key={index}>{post.content}</Text>)}
     </View>
   );
 }

@@ -1,6 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { LoginScreen } from "../screens/LoginScreen";
-import { RegisterScreen } from "../screens/RegisterScreen";
 import { AddPostScreen } from "../screens/AddPostScreen";
 import TabNavigator from "./TabNavigators";
 import { HomeScreen } from "../screens/HomeScreen";
@@ -9,6 +8,7 @@ import React, { useContext, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
 import { LogoutScreen } from "../screens/LogoutScreen";
+import RegisterScreen from "../screens/RegisterScreen";
 
 const Stack = createNativeStackNavigator();
 
