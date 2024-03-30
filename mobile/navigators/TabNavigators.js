@@ -1,7 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 const Tab = createBottomTabNavigator();
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { AddPostScreen } from "../screens/AddPostScreen";
 import { ProfileScreen } from "../screens/ProfileScreen";
 import { ExploreScreen } from "../screens/ExploreScreen";
 import { HomeScreen } from "../screens/HomeScreen";
@@ -10,6 +9,7 @@ import { ReelsScreen } from "../screens/ReelsScreen";
 import { Foundation } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import LogoTitle from "../components/instagram";
+import AddPostScreen from "../screens/AddPostScreen";
 
 function TabNavigator() {
   return (
