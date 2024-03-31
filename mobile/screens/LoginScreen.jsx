@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import {
   View,
   Text,
@@ -21,6 +21,7 @@ import { gql, useMutation, useQuery } from "@apollo/client";
 import { SafeAreaView } from "react-native-safe-area-context";
 import LogoTitle from "../components/instagram";
 import { Colors } from "react-native/Libraries/NewAppScreen";
+import { RefreshControl } from "react-native-gesture-handler";
 const LOGIN = gql`
   mutation Mutation($username: String!, $password: String!) {
     login(username: $username, password: $password) {
@@ -40,13 +41,13 @@ export function LoginScreen({ navigation }) {
       setIsSignedIn(true);
     },
   });
-  if (loading) {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color={Colors.primary} />
-      </View>
-    );
-  }
+
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    flag = false;
+    setRefreshing(false);
+  }, []);
   async function handleLogin() {
     try {
       await loginFunction({
@@ -62,8 +63,20 @@ export function LoginScreen({ navigation }) {
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color={Colors.primary} />
+      </View>
+    );
+  }
   return (
-    <View style={Styles.container}>
+    <View
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+      style={Styles.container}
+    >
       <View style={Styles.logoContainer}>
         <LogoTitle></LogoTitle>
       </View>

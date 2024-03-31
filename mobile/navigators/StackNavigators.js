@@ -10,6 +10,8 @@ import * as SecureStore from "expo-secure-store";
 import { LogoutScreen } from "../screens/LogoutScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import { CommentScreen } from "../screens/CommentScreen";
+import { FollowingScreen } from "../screens/followingScreen";
+import { FollowerSCreen } from "../screens/followerScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -39,6 +41,16 @@ function StackNavigator() {
             <Stack.Screen 
             name="Comments"
             component={CommentScreen}
+            options={{headerShown: true}}
+            />
+            <Stack.Screen 
+            name="FollowingScreen"
+            component={FollowingScreen}
+            options={{headerShown: true}}
+            />
+            <Stack.Screen 
+            name="FollowerScreen"
+            component={FollowerSCreen}
             options={{headerShown: true}}
             />
             <Stack.Screen

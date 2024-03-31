@@ -77,12 +77,7 @@ export default function AddPostScreen({ navigation }) {
         />
       </View>
       <View style={Styles.mainContainer}>
-        <SimpleLineIcons
-          name="user"
-          size={20}
-          color="black"
-          style={Styles.icon}
-        />
+      <FontAwesome name="tags" size={24} color="black" style={Styles.icon} />
         <TextInput
           style={Styles.mainInput}
           placeholder="Tags.."

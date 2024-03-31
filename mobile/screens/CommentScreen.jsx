@@ -60,9 +60,8 @@ export const CommentScreen = ({ route }) => {
         {data && data.detailPost.comments.length > 0 ? (
           data.detailPost.comments.map((comment, index) => (
             <>
-              <View style={{ flexDirection: "row" }}>
+              <View key={index} style={{ flexDirection: "row" }}>
                 <View
-                  key={index}
                   style={{ flexDirection: "row", marginBottom: 10 }}
                 >
                   <Image

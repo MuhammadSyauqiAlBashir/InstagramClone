@@ -86,7 +86,9 @@ function TabNavigator() {
               size={size}
             />
           ),
+          headerShown: false 
         }}
+        
       />
     </Tab.Navigator>
   );

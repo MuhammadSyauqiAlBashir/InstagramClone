@@ -66,13 +66,6 @@ const query2 = gql`
 export function HomeScreen({navigation}) {
   const { loading: loading2, error: error2, data: data2, refetch:refetch2 } = useQuery(query2);
   const { loading, error, data, refetch } = useQuery(query);
-  if (loading || loading2) {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color={Colors.primary} />
-      </View>
-    );
-  }
   let flag = false
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
@@ -83,6 +76,13 @@ export function HomeScreen({navigation}) {
     setRefreshing(false);
   }, []);
   let user = data2?.myProfile;
+  if (loading || loading2) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color={Colors.primary} />
+      </View>
+    );
+  }
   return (
     <ScrollView
       refreshControl={
