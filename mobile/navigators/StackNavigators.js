@@ -12,6 +12,7 @@ import RegisterScreen from "../screens/RegisterScreen";
 import { CommentScreen } from "../screens/CommentScreen";
 import { FollowingScreen } from "../screens/followingScreen";
 import { FollowerSCreen } from "../screens/followerScreen";
+import DetailPost from "../screens/detailPost";
 
 const Stack = createNativeStackNavigator();
 
@@ -51,6 +52,11 @@ function StackNavigator() {
             <Stack.Screen 
             name="FollowerScreen"
             component={FollowerSCreen}
+            options={{headerShown: true}}
+            />
+            <Stack.Screen 
+            name="detailPost"
+            component={DetailPost}
             options={{headerShown: true}}
             />
             <Stack.Screen

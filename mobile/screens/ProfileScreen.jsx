@@ -1,5 +1,15 @@
 import React, { useCallback, useState } from "react";
-import { FlatList, TouchableOpacity, View, Text, Image, StyleSheet, ActivityIndicator, RefreshControl, ScrollView } from "react-native";
+import {
+  FlatList,
+  TouchableOpacity,
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ActivityIndicator,
+  RefreshControl,
+  ScrollView,
+} from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { Feather } from "@expo/vector-icons";
@@ -68,6 +78,7 @@ export function ProfileScreen({ navigation }) {
       </View>
     );
   }
+  
 
   if (error) {
     return <Text>Error: {error.message}</Text>;
@@ -76,25 +87,34 @@ export function ProfileScreen({ navigation }) {
   const RenderItem = ({ item }) => {
     return (
       <View style={{ flex: 1 }}>
-        <Image
-          source={{ uri: item.imgUrl }}
-          style={{
-            height: 200,
-            flex: 1,
-            marginEnd: 2,
-            marginBottom: 2,
-            alignItems: "center",
-          }}
-        />
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("detailPost", {
+              _id: item._id, username: data.myProfile.username
+            })
+          }
+        >
+          <Image
+            source={{ uri: item.imgUrl }}
+            style={{
+              height: 200,
+              flex: 1,
+              marginEnd: 2,
+              marginBottom: 2,
+              alignItems: "center",
+            }}
+          />
+        </TouchableOpacity>
       </View>
     );
   };
   return (
     <>
       <SafeAreaView
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-      }>
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <View style={Styles.header}>
           <Feather name="lock" size={24} color="black" />
           <View style={{ flexDirection: "column" }}>
@@ -162,7 +182,11 @@ export function ProfileScreen({ navigation }) {
                   </View>
                   <View style={Styles.container3}>
                     <TouchableOpacity
-                      onPress={() => navigation.navigate("FollowerScreen", { follower: data.myProfile.followerDetail })}
+                      onPress={() =>
+                        navigation.navigate("FollowerScreen", {
+                          follower: data.myProfile.followerDetail,
+                        })
+                      }
                     >
                       <Text style={Styles.numberContainer}>
                         {data.myProfile.followerDetail.length}
@@ -172,7 +196,11 @@ export function ProfileScreen({ navigation }) {
                   </View>
                   <View style={Styles.container3}>
                     <TouchableOpacity
-                      onPress={() => navigation.navigate("FollowingScreen", { following: data.myProfile.followingDetail })}
+                      onPress={() =>
+                        navigation.navigate("FollowingScreen", {
+                          following: data.myProfile.followingDetail,
+                        })
+                      }
                     >
                       <Text style={Styles.numberContainer}>
                         {data.myProfile.followingDetail.length}
@@ -313,10 +341,10 @@ const Styles = StyleSheet.create({
   reverse: {
     flexDirection: "row",
     width: "75%",
-    display:"flex",
-    alignItems : "flex-end",
-    justifyContent : "flex-end",
-    alignContent :"flex-end"
+    display: "flex",
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+    alignContent: "flex-end",
   },
   tags: {
     fontSize: 12,
