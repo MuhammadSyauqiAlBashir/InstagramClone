@@ -1,10 +1,13 @@
-require("dotenv").config();
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+}
 const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
 const Tokenjwt = require("./helpers/jwt");
 const { typeDefsUser, resolversUser } = require("./schemas/user");
 const { typeDefsPost, resolversPost } = require("./schemas/post");
 const { typeDefsFollow, resolversFollow } = require("./schemas/follow");
+const port = process.env.port || 4000;
 
 const server = new ApolloServer({
   typeDefs: [typeDefsUser, typeDefsPost, typeDefsFollow],
@@ -14,7 +17,7 @@ const server = new ApolloServer({
 
 (async () => {
   const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 },
+    listen: { port: port },
     context: ({ req, res }) => {
       return {
         auth: () => {
