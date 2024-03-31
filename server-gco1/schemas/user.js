@@ -62,7 +62,7 @@ const resolversUser = {
     },
     myProfile: async (_, __, { auth }) => {
       const data = auth();
-      const myProfile = await User.myProfile(data._id);
+      const myProfile = await User.userDetails(data._id);
       return myProfile;
     },
   },

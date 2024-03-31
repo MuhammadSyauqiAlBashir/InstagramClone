@@ -57,7 +57,7 @@ const like = gql`
     }
   }
 `;
-function DetailPost({ route }) {
+function DetailPost({ route, navigation }) {
   const { _id } = route.params;
   const { username } = route.params;
   let flag = false

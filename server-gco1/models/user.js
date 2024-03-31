@@ -25,7 +25,7 @@ class User {
       email: email,
     });
   }
-  static async myProfile(id) {
+  static async userDetails(id) {
     const agg = [
       {
         $match: {
@@ -70,50 +70,6 @@ class User {
           localField: "_id",
           foreignField: "authorId",
           as: "userPost",
-        },
-      },
-    ];
-    const cursor = this.userCollection().aggregate(agg);
-    const result = await cursor.toArray();
-    return result[0];
-  }
-  static async userDetails(id) {
-    const agg = [
-      {
-        $match: {
-          _id: new ObjectId(String(id)),
-        },
-      },
-      {
-        $lookup: {
-          from: "Follows",
-          localField: "_id",
-          foreignField: "followingId",
-          as: "followers",
-        },
-      },
-      {
-        $lookup: {
-          from: "Users",
-          localField: "followers.followerId",
-          foreignField: "_id",
-          as: "followerDetail",
-        },
-      },
-      {
-        $lookup: {
-          from: "Follows",
-          localField: "_id",
-          foreignField: "followerId",
-          as: "following",
-        },
-      },
-      {
-        $lookup: {
-          from: "Users",
-          localField: "following.followingId",
-          foreignField: "_id",
-          as: "followingDetail",
         },
       },
     ];
