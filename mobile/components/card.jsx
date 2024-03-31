@@ -35,13 +35,7 @@ function Card({ post, user, refetch, flag , navigation}) {
     }
   });
   const [likefunction, { loading, error, data }] = useMutation(like);
-  if (loading) {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color={Colors.primary} />
-      </View>
-    );
-  }
+  
   async function handleLike() {
     try {
       await likefunction({
@@ -54,6 +48,14 @@ function Card({ post, user, refetch, flag , navigation}) {
     } catch (error) {
       Alert.alert("Something Error", error.message);
     }
+  }
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color={Colors.primary} />
+      </View>
+    );
   }
 
   return (
