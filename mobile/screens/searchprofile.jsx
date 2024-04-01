@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   RefreshControl,
   ScrollView,
+  Alert,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
@@ -16,7 +17,7 @@ import { Feather } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import images from "../res/images";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { MaterialIcons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -24,19 +25,19 @@ import { SafeAreaView } from "react-native-safe-area-context";
 const data1 = [{ key: "1" }];
 
 const query = gql`
-  query Query($username: String) {
-    findUser(username: $username) {
+  query Query($userDetailId: String!) {
+    userDetail(id: $userDetailId) {
       _id
       name
       username
       email
-      followerDetail {
+      followingDetail {
         _id
         name
         username
         email
       }
-      followingDetail {
+      followerDetail {
         _id
         name
         username
@@ -54,14 +55,33 @@ const query = gql`
     }
   }
 `;
-
+const query2 = gql`
+  query MyProfile {
+    myProfile {
+      username
+    }
+  }
+`;
+const query3 = gql`
+  mutation Mutation($followingId: ID) {
+    follow(followingId: $followingId) {
+      _id
+      followingId
+      followerId
+      createdAt
+      updatedAt
+    }
+  }
+`;
 export function SearchProfile({ navigation, route }) {
-  const { username } = route.params;
-  const { loading, error, data, refetch } = useQuery(query,{
-      variables: { username: username },
-      notifyOnNetworkStatusChange: true,
-    });
-    
+  const { id } = route.params;
+  const { loading, error, data, refetch } = useQuery(query, {
+    variables: { userDetailId: id },
+    notifyOnNetworkStatusChange: true,
+  });
+  const { loading: loading2, error: error2, data: data2 } = useQuery(query2);
+  const [submitFollow, { loading: loading3, error: error3, data: data3 }] =
+    useMutation(query3);
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -74,7 +94,18 @@ export function SearchProfile({ navigation, route }) {
     await refetch();
     setRefreshing(false);
   };
-
+  const handleFollow = async () => {
+    try {
+        await submitFollow({
+          variables: {
+            followingId : id,
+          },
+        });
+        refetch()
+    } catch (error) {
+        Alert.alert("You Already Followed This User", error.message)
+    }
+  };
   if (loading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -88,12 +119,12 @@ export function SearchProfile({ navigation, route }) {
 
   const RenderItem = ({ item }) => {
     return (
-      <View  style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
         <TouchableOpacity
           onPress={() =>
             navigation.navigate("detailPost", {
               _id: item._id,
-              username: data.myProfile.username,
+              username: data2.myProfile.username,
             })
           }
         >
@@ -143,7 +174,7 @@ export function SearchProfile({ navigation, route }) {
                   <View style={Styles.container3}>
                     <TouchableOpacity>
                       <Text style={Styles.numberContainer}>
-                        {data.myProfile.userPost.length}
+                        {data.userDetail.userPost.length}
                       </Text>
                       <Text style={Styles.text}>Posts</Text>
                     </TouchableOpacity>
@@ -152,12 +183,12 @@ export function SearchProfile({ navigation, route }) {
                     <TouchableOpacity
                       onPress={() =>
                         navigation.navigate("FollowerScreen", {
-                          follower: data.myProfile.followerDetail,
+                          follower: data.userDetail.followerDetail,
                         })
                       }
                     >
                       <Text style={Styles.numberContainer}>
-                        {data.myProfile.followerDetail.length}
+                        {data.userDetail?.followerDetail?.length}
                       </Text>
                       <Text style={Styles.text}>Followers</Text>
                     </TouchableOpacity>
@@ -166,12 +197,12 @@ export function SearchProfile({ navigation, route }) {
                     <TouchableOpacity
                       onPress={() =>
                         navigation.navigate("FollowingScreen", {
-                          following: data.myProfile.followingDetail,
+                          following: data.userDetail.followingDetail,
                         })
                       }
                     >
                       <Text style={Styles.numberContainer}>
-                        {data.myProfile.followingDetail.length}
+                        {data.userDetail.followingDetail.length}
                       </Text>
                       <Text style={Styles.text}>Following</Text>
                     </TouchableOpacity>
@@ -188,7 +219,7 @@ export function SearchProfile({ navigation, route }) {
               >
                 <View style={{ marginBottom: 5 }}>
                   <Text style={{ color: "black", fontWeight: "bold" }}>
-                    {data.myProfile.username}
+                    {data.userDetail.username}
                   </Text>
                 </View>
                 <View style={{ marginBottom: 5 }}>
@@ -197,7 +228,7 @@ export function SearchProfile({ navigation, route }) {
                   </Text>
                 </View>
               </View>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={handleFollow}>
                 <View style={{ marginTop: 10 }}>
                   <View
                     style={{
@@ -286,7 +317,7 @@ export function SearchProfile({ navigation, route }) {
               </View>
             </ScrollView>
             <FlatList
-              data={data.myProfile.userPost}
+              data={data.userDetail.userPost}
               style={{ marginTop: 2, marginStart: 2 }}
               renderItem={({ item }) => <RenderItem item={item} />}
               numColumns={3}

@@ -60,7 +60,7 @@ const like = gql`
 function DetailPost({ route, navigation }) {
   const { _id } = route.params;
   const { username } = route.params;
-  let flag = false
+  let flag = false;
 
   const { loading, error, data, refetch } = useQuery(query, {
     variables: { id: _id },
@@ -99,7 +99,7 @@ function DetailPost({ route, navigation }) {
       <View style={styles.header}>
         <MaterialCommunityIcons name="account-circle" size={35} color="black" />
         <View style={{ flexDirection: "column" }}>
-          <Text style={styles.username}>{username}</Text>
+          <Text style={styles.username}>{data.detailPost.author.name}</Text>
           <Text style={styles.tags}>
             {data?.detailPost?.tags.map((item) => {
               return item + " ";

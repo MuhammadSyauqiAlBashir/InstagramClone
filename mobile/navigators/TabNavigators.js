@@ -10,6 +10,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import LogoTitle from "../components/instagram";
 import AddPostScreen from "../screens/AddPostScreen";
 import ExploreScreen from "../screens/ExploreScreen";
+import HeartLogo from "../components/heart";
 
 function TabNavigator() {
   return (
@@ -23,6 +24,7 @@ function TabNavigator() {
           fontWeight: "bold",
         },
         headerLeft: () => <LogoTitle />,
+        headerRight: () => <HeartLogo />
       }}
     >
       <Tab.Screen
@@ -47,7 +49,7 @@ function TabNavigator() {
           tabBarIcon: ({ color, size }) => (
             <AntDesign name="search1" size={24} color={color} />
           ),
-          headerShown: false 
+          headerShown: false,
         }}
       />
       <Tab.Screen
@@ -86,9 +88,8 @@ function TabNavigator() {
               size={size}
             />
           ),
-          headerShown: false 
+          headerShown: false,
         }}
-        
       />
     </Tab.Navigator>
   );

@@ -111,9 +111,7 @@ export function ProfileScreen({ navigation }) {
   return (
     <>
       <SafeAreaView
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
+        
       >
         <View style={Styles.header}>
           <Feather name="lock" size={24} color="black" />
@@ -153,6 +151,9 @@ export function ProfileScreen({ navigation }) {
       <FlatList
         style={{ flex: 1, backgroundColor: "white", marginTop: -35 }}
         data={data1}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         renderItem={() => (
           <>
             <ScrollView
@@ -340,7 +341,7 @@ const Styles = StyleSheet.create({
   },
   reverse: {
     flexDirection: "row",
-    width: "75%",
+    width: "67%",
     display: "flex",
     alignItems: "flex-end",
     justifyContent: "flex-end",
