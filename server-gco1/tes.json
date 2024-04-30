@@ -1,0 +1,236 @@
+[
+    {
+        "name": "MDL Chicken Combo",
+        "slug": "mdl-chicken-combo",
+        "description": "1 pc Chicken + 1 Rice + 1 Fanta Float + 1 benefit card game",
+        "excerpt": "1 pc Chicken + 1 Rice + 1 Fanta Float + 1 benefit card game",
+        "price": 30000,
+        "tags": [
+            "ayam",
+            "MDL",
+            "Paket"
+        ],
+        "thumbnail": "https://static.order.kfcku.com/images/items/lg/12987.jpg?v=LvjYXL",
+        "images": [
+            "https://static.order.kfcku.com/images/items/lg/12987.jpg?v=LvjYXL"
+        ],
+        "createdAt": "2024-04-04T05:26:50.973Z",
+        "updatedAt": "2024-04-04T05:26:50.973Z"
+    },
+    {
+        "name": "Click Combo 2",
+        "slug": "Click Combo 2",
+        "description": "3 Pcs Fish Burger + 1 Pc Chicken + 1 Rice + 2 Coca Cola Reguler",
+        "excerpt": "3 Pcs Fish Burger + 1 Pc Chicken + 1 Rice + 2 Coca Cola Reguler",
+        "price": 100000,
+        "tags": [
+            "Ayam",
+            "Paket",
+            "Burger"
+        ],
+        "thumbnail": "https://static.order.kfcku.com/images/items/lg/13012.jpg?v=LvjYXL",
+        "images": [
+            "https://static.order.kfcku.com/images/items/lg/13012.jpg?v=LvjYXL"
+        ],
+        "createdAt": "2024-04-04T05:26:50.973Z",
+        "updatedAt": "2024-04-04T05:26:50.973Z"
+    },
+    {
+        "name": "Snack Bucket 1",
+        "slug": "snack-bucket-1",
+        "description": "4 pcs Chicken Strip + 1 Fun Fries + 1 KFC Winger + 6 Chicken Ball",
+        "excerpt": "4 pcs Chicken Strip + 1 Fun Fries + 1 KFC Winger + 6 Chicken Ball",
+        "price": 78637,
+        "tags": [
+            "Paket",
+            "Bucket",
+            "Baverage"
+        ],
+        "thumbnail": "https://static.order.kfcku.com/images/items/lg/5587.jpg?v=LvjYXL",
+        "images": [
+            "https://static.order.kfcku.com/images/items/lg/5587.jpg?v=LvjYXL"
+        ],
+        "createdAt": "2024-04-04T05:26:50.973Z",
+        "updatedAt": "2024-04-04T05:26:50.973Z"
+    },
+    {
+        "name": "MDL Burger Combo",
+        "slug": "mdl-burger-combo",
+        "description": "1 Crispy Burger + 1/2 Chicken Ball + Fanta Float + 1 benefit card game",
+        "excerpt": "1 Crispy Burger + 1/2 Chicken Ball + Fanta Float + 1 benefit card game",
+        "price": 30000,
+        "tags": [
+            "ayam",
+            "MDL",
+            "Paket"
+        ],
+        "thumbnail": "https://static.order.kfcku.com/images/items/lg/12988.jpg?v=LvjYXL",
+        "images": [
+            "https://static.order.kfcku.com/images/items/lg/12988.jpg?v=LvjYXL"
+        ],
+        "createdAt": "2024-04-04T05:26:50.973Z",
+        "updatedAt": "2024-04-04T05:26:50.973Z"
+    },
+    {
+        "name": "Chicken Balls Golden Cheese",
+        "slug": "chicken-balls-golden-cheese",
+        "description": "Chicken Balls Golden Cheese",
+        "excerpt": "Chicken Balls Golden Cheese",
+        "price": 16273,
+        "tags": [
+            "ayam",
+            "MDL",
+            "Paket"
+        ],
+        "thumbnail": "https://static.order.kfcku.com/images/items/lg/13054.jpg?v=LvjYXL",
+        "images": [
+            "https://static.order.kfcku.com/images/items/lg/13054.jpg?v=LvjYXL"
+        ],
+        "createdAt": "2024-04-04T05:26:50.973Z",
+        "updatedAt": "2024-04-04T05:26:50.973Z"
+    },
+    {
+        "name": "Click Combo 1",
+        "slug": "Click Combo 1",
+        "description": "3 Pcs Chicken + 2 Pcs Fish Burger + 1 Rice + 2 Coca Cola Reguler",
+        "excerpt": "3 Pcs Chicken + 2 Pcs Fish Burger + 1 Rice + 2 Coca Cola Reguler",
+        "price": 90909,
+        "tags": [
+            "Ayam",
+            "Paket",
+            "Burger"
+        ],
+        "thumbnail": "https://static.order.kfcku.com/images/items/lg/13011.jpg?v=LvjYXL",
+        "images": [
+            "https://static.order.kfcku.com/images/items/lg/13011.jpg?v=LvjYXL"
+        ],
+        "createdAt": "2024-04-04T05:26:50.973Z",
+        "updatedAt": "2024-04-04T05:26:50.973Z"
+    },
+    {
+        "name": "Snack Bucket 2",
+        "slug": "snack-bucket-2",
+        "description": "2 pcs Chicken Strip + 1 Fun Fries + 1 KFC Winger + 6 Chicken Ball",
+        "excerpt": "2 pcs Chicken Strip + 1 Fun Fries + 1 KFC Winger + 6 Chicken Ball",
+        "price": 65909,
+        "tags": [
+            "Paket",
+            "Bucket",
+            "Baverage"
+        ],
+        "thumbnail": "https://static.order.kfcku.com/images/items/lg/5588.jpg?v=LvjYXL",
+        "images": [
+            "https://static.order.kfcku.com/images/items/lg/5588.jpg?v=LvjYXL"
+        ],
+        "createdAt": "2024-04-04T05:26:50.973Z",
+        "updatedAt": "2024-04-04T05:26:50.973Z"
+    },
+    {
+        "name": "Snack Bucket Roasted Corn 1",
+        "slug": "snack-bucket-roasted-corn-1",
+        "description": "2 porsi (4pcs) Crispy Strips + 1 Porsi Chicken Ball (6pcs) + 1 Winger (2 Drumette + 2 Winget) + 1 French Fries Large",
+        "excerpt": "2 porsi (4pcs) Crispy Strips + 1 Porsi Chicken Ball (6pcs) + 1 Winger (2 Drumette + 2 Winget) + 1 French Fries Large",
+        "price": 78636,
+        "tags": [
+            "Paket",
+            "Corn",
+            "Roasted"
+        ],
+        "thumbnail": "https://static.order.kfcku.com/images/items/lg/12630.jpg?v=LvjYXL",
+        "images": [
+            "https://static.order.kfcku.com/images/items/lg/12630.jpg?v=LvjYXL"
+        ],
+        "createdAt": "2024-04-04T05:26:50.973Z",
+        "updatedAt": "2024-04-04T05:26:50.973Z"
+    },
+    {
+        "name": "Snack Bucket Roasted Corn 2",
+        "slug": "snack-bucket-roasted-corn-2",
+        "description": "1 porsi (2pcs) Crispy Strips + 1 Porsi Chicken Ball (6pcs) + 1 Winger (2 Drumette + 2 Winget) + 1 French Fries Large",
+        "excerpt": "1 porsi (2pcs) Crispy Strips + 1 Porsi Chicken Ball (6pcs) + 1 Winger (2 Drumette + 2 Winget) + 1 French Fries Large",
+        "price": 66818,
+        "tags": [
+            "Paket",
+            "Bucket",
+            "Snack"
+        ],
+        "thumbnail": "https://static.order.kfcku.com/images/items/lg/12631.jpg?v=LvjYXL",
+        "images": [
+            "https://static.order.kfcku.com/images/items/lg/12631.jpg?v=LvjYXL"
+        ],
+        "createdAt": "2024-04-04T05:26:50.973Z",
+        "updatedAt": "2024-04-04T05:26:50.973Z"
+    },
+    {
+        "name": "2 pcs Pukis Coffee Nescafe",
+        "slug": "2 pcs Pukis Coffee Nescafe",
+        "description": "2pcs Pukis + 1 Cup Coffee Nescafe (pilih : Black Coffee, Café Latte, Cappucino)",
+        "excerpt": "2pcs Pukis + 1 Cup Coffee Nescafe (pilih : Black Coffee, Café Latte, Cappucino)",
+        "price": 22728,
+        "tags": [
+            "Desert",
+            "Paket",
+            "Coffee"
+        ],
+        "thumbnail": "https://static.order.kfcku.com/images/items/lg/9834.jpg?v=LvjYXL",
+        "images": [
+            "https://static.order.kfcku.com/images/items/lg/9834.jpg?v=LvjYXL"
+        ],
+        "createdAt": "2024-04-04T05:26:50.973Z",
+        "updatedAt": "2024-04-04T05:26:50.973Z"
+    },
+    {
+        "name": "Crazy Deal 5Pcs",
+        "slug": "crazy-deal-5pcs",
+        "description": "5 Pcs Chicken",
+        "excerpt": "5 Pcs Chicken.",
+        "price": 60000,
+        "tags": [
+            "Ayam",
+            "Paket",
+            "Kenyang"
+        ],
+        "thumbnail": "https://static.order.kfcku.com/images/items/lg/12949.jpg?v=LvjYXL",
+        "images": [
+            "https://static.order.kfcku.com/images/items/lg/12949.jpg?v=LvjYXL"
+        ],
+        "createdAt": "2024-04-04T05:26:50.973Z",
+        "updatedAt": "2024-04-04T05:26:50.973Z"
+    },
+    {
+        "name": "5Pcs Golden Chicken",
+        "slug": "5Pcs-golden-chicken",
+        "description": "5Pcs Golden Chicken",
+        "excerpt": "5Pcs Golden Chicken",
+        "price": 109091,
+        "tags": [
+            "Ayam",
+            "Paket",
+            "Golden"
+        ],
+        "thumbnail": "https://static.order.kfcku.com/images/items/lg/12799.jpg?v=LvjYXL",
+        "images": [
+            "https://static.order.kfcku.com/images/items/lg/12799.jpg?v=LvjYXL"
+        ],
+        "createdAt": "2024-04-04T05:26:50.973Z",
+        "updatedAt": "2024-04-04T05:26:50.973Z"
+    },
+    {
+        "name": "9 Pcs Bucket",
+        "slug": "9-pcs-bucket",
+        "description": "9 Potong Ayam",
+        "excerpt": "9 Potong Ayam",
+        "price": 152273,
+        "tags": [
+            "Ayam",
+            "Paket",
+            "Rame"
+        ],
+        "thumbnail": "https://static.order.kfcku.com/images/items/lg/4842.jpg?v=LvjYXL",
+        "images": [
+            "https://static.order.kfcku.com/images/items/lg/4842.jpg?v=LvjYXL"
+        ],
+        "createdAt": "2024-04-04T05:26:50.973Z",
+        "updatedAt": "2024-04-04T05:26:50.973Z"
+    }
+]
